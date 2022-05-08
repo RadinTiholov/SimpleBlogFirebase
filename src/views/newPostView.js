@@ -16,43 +16,40 @@ const template = (onSubmit) =>
     
         <!-- Icon -->
         <div class="fadeIn first">
-          <img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" id="icon" alt="User Icon" />
+          <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d3JpdGluZ3xlbnwwfHwwfHw%3D&w=1000&q=80" id="icon" alt="User Icon" />
+          <h1>New post</h2>
         </div>
     
-        <!-- Login Form -->
         <form @submit = ${onSubmit}>
-          <input type="text" id="login" class="fadeIn second" name="email" placeholder="Email">
-          <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+          <input type="text" id="login" class="fadeIn second" name="title" placeholder="Title">
+          <input type="password" id="password" class="fadeIn third" name="details" placeholder="Details">
+          <input type="password" id="password" class="fadeIn third" name="imageLink" placeholder="Image link">
           <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
-    
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-          <a class="underlineHover" href="/register">Register</a>
-        </div>
     
       </div>
     </div>
     </div>
      `;
 }
-export const loginView = (ctx) => {
+export const newPostView = (ctx) => {
   ctx.render(template(onSubmit), root);
 
   async function onSubmit(e){
       e.preventDefault();
 
       const formData = new FormData(e.target);
-      const email = formData.get('email');
-      const password = formData.get('password');
+      const title = formData.get('title');
+      const details = formData.get('details');
+      const imageLink = formData.get('imageLink');
   
-      if(email == '' || password == ''){
+      if(title == '' || details == '' || imageLink == ''){
           return alert('Empty')
       }
       else
       {
         try {
-            await ctx.data.login(email, password);
+            //await ctx.data.addNewPost(title, details, imageLink);
             ctx.page.redirect('/mainthread');
         } catch (error) {
             alert(error.message)
