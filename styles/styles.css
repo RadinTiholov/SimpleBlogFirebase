@@ -5,7 +5,22 @@
     background-repeat: no-repeat;
      background-size: cover;
 }
-#btnover{
+.over{
+    position: absolute;
+}
+.cardOver{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    margin: 100px 100px;
+}
+.btnover{
     position: absolute;
     top: 60%;
     left: 50%;
@@ -20,4 +35,19 @@
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
+}
+.md-fab-bottom-right{
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 50%;
+
+    position: fixed !important;
+    right: 15px; /* Add this and change value to set the margin you want */
 }
