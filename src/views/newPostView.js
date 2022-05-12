@@ -22,9 +22,9 @@ const template = (onSubmit) =>
     
         <form @submit = ${onSubmit}>
           <input type="text" id="login" class="fadeIn second" name="title" placeholder="Title">
-          <input type="password" id="password" class="fadeIn third" name="details" placeholder="Details">
-          <input type="password" id="password" class="fadeIn third" name="imageLink" placeholder="Image link">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+          <input type="text" id="login" class="fadeIn third" name="details" placeholder="Details">
+          <input type="text" id="login" class="fadeIn third" name="imageLink" placeholder="Image link">
+          <input type="submit" class="fadeIn fourth" value="Add">
         </form>
     
       </div>
@@ -49,7 +49,7 @@ export const newPostView = (ctx) => {
       else
       {
         try {
-            //await ctx.data.addNewPost(title, details, imageLink);
+            await ctx.data.addNewPost(title, details, imageLink);
             ctx.page.redirect('/mainthread');
         } catch (error) {
             alert(error.message)

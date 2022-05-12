@@ -8,28 +8,56 @@ const template = (data) =>
     <a class="md-fab md-fab-bottom-right" href="/newpost">
         <md-icon>Add</md-icon>
     </a>
+    <style>
+.grid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  align-items: stretch;
+  }
+.grid > article {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+.grid > article img {
+  max-width: 100%;
+}
+.text {
+  padding: 0 20px 20px;
+}
+.text > button {
+  background: gray;
+  border: 0;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  }
+</style>
+<main class="grid">
     ${data.map(item => cardTemplate(item))}
-    <img id="bg" src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmxvZ3xlbnwwfHwwfHw%3D&w=1000&q=80">
     `;
 }
 const cardTemplate = (info) => {
     console.log(info);
     return html`
-    <div class="cardOver" style="width: 18rem;">
-    <img class="card-img-top" src=${info.imageLink} alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">${info.title}</h5>
-        <p class="card-text">>${info.details}</p>
-        <a href="#" class="btn btn-primary">Details</a>
-    </div>
-    </div>`;
+    <article>
+        <img src=${info.imageLink} alt="Photo">
+            <div class="text">
+            <h2>${info.title}</h2>
+            <p>${info.details}</p>
+            <a href='details/${info.id}' class="btn btn-primary" id="fixedButton">Details</a>
+        </div>
+    </article>
+    `;
 }
 export const mainThreadView = async (ctx) => {
     let data = await ctx.data.readAllPosts();
     let arr = [];
+    let i = 0;
     data.forEach((doc) => {
         arr.push(doc.data());
+        arr[i]['id'] = doc.id;
+        i++;
       });
-    console.log(arr);
     ctx.render(template(arr), root);
 }
