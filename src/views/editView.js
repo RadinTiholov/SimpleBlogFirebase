@@ -1,0 +1,63 @@
+import {html} from '../../node_modules/lit-html/lit-html.js'
+
+const template = (onSubmit,item) => 
+{
+    return html`<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../styles/loginPage.css"><link/>
+    <!------ Include the above in your HEAD tag ---------->
+    <div class="all">
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d3JpdGluZ3xlbnwwfHwwfHw%3D&w=1000&q=80" id="icon" alt="User Icon" />
+          <h1>New post</h2>
+        </div>
+    
+        <form @submit = ${onSubmit}>
+          <input type="text" id="login" class="fadeIn second" name="title" placeholder="Title" value=${item.title}>
+          <input type="text" id="login" class="fadeIn third" name="details" placeholder="Details" value=${item.details}>
+          <input type="text" id="login" class="fadeIn third" name="imageLink" placeholder="Image link" value=${item.imageLink}>
+          <input type="submit" class="fadeIn fourth" value="Add">
+        </form>
+    
+      </div>
+    </div>
+    </div>
+     `;
+}
+export const editView = async (ctx) => {
+  const id = ctx.params.id;
+  try {
+    const item = await ctx.data.getItem(id);
+    ctx.render(template(onSubmit, item));
+  } catch (error) {
+    alert(error);
+  }
+
+  async function onSubmit(e){
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const title = formData.get('title');
+      const details = formData.get('details');
+      const imageLink = formData.get('imageLink');
+  
+      if(title == '' || details == '' || imageLink == ''){
+          return alert('Empty')
+      }
+      else
+      {
+        try {
+            await ctx.data.updatePost(title, details, imageLink, id);
+            ctx.page.redirect('/mainthread');
+        } catch (error) {
+            alert(error.message)
+        }
+      }
+  }
+}

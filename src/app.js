@@ -2,6 +2,7 @@ import page from '../node_modules/page/page.mjs'
 import { navigationMiddleware } from './middlewares/navigationMiddleware.js';
 import { renderMiddleware } from './middlewares/renderMiddleware.js';
 import { detailsView } from './views/detailsView.js';
+import { editView } from './views/editView.js';
 import { homeView } from './views/homeView.js';
 import { loginView } from './views/loginView.js';
 import { logoutView } from './views/logoutView.js';
@@ -18,5 +19,6 @@ page('/logout', logoutView)
 page('/mainthread', mainThreadView)
 page('/newpost', newPostView)
 page('/details/:id', detailsView)
+page('/edit/:id', editView)
 page.start();
 
